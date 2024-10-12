@@ -1,0 +1,6 @@
+users.txt 内为学生的账号和密码
+titles.txt 内为学生需要提交的文件名
+downloads 内放需要学生下载的文件（可以放题目）
+uploads 内为学生上传的文件
+signins 内为学生登录信息（用作签到）
+打开 启动程序.bat 即可启动

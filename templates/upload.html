@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>上传代码</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>文件上传</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="error">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2>下载题目</h2>
+        <ul>
+            {% for file in download_files %}
+            <li><a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <h2>提交代码</h2>
+        <form method="post" enctype="multipart/form-data" style="display:flex; flex-direction: column;">
+            <ul>
+                {% for title, status in file_status %}
+                <li class="upload-item">
+                    <span>{{ title }} ({{ status }})</span>
+                    {% if status == '已上传' %}
+                    <a href="{{ url_for('download_uploaded_file', username=session['username'], filename=title) }}" >查看</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            <input type="file" name="files" multiple>
+            <button type="submit" style="width: 30%; margin-top: 20px;">提交代码</button>
+        </form>
+
+        <a href="{{ url_for('logout') }}" style="display: block; margin-top: 20px; color: #5cb85c;">登出</a>
+    </div>
+</body>
+</html>
