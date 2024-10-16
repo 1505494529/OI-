@@ -50,6 +50,10 @@ input[type="file"]:focus {
     border-color: #5cb85c;
 }
 
+input {
+    margin-bottom: 20px;
+}
+
 button {
     width: 100%;
     padding: 10px;
@@ -81,6 +85,7 @@ a {
     color: #2600ff;
     text-decoration: none; 
     font-weight: bold;
+    margin-right: 10px;
 }
 
 a:hover {

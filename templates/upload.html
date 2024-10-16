@@ -13,36 +13,84 @@
             {% if messages %}
                 <ul>
                     {% for category, message in messages %}
-                        <li class="error">{{ message }}</li>
+                        <li class="{{ 'error' if category == 'error' else 'success' }}">{{ message }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
         {% endwith %}
 
         <h2>下载题目</h2>
-        <ul>
+        <ul class="download-list">
             {% for file in download_files %}
-            <li><a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></li>
+            <li>
+                <a href="{{ url_for('download_file', filename=file) }}" class="file-link">{{ file }}</a>
+            </li>
             {% endfor %}
         </ul>
 
         <h2>提交代码</h2>
-        <form method="post" enctype="multipart/form-data" style="display:flex; flex-direction: column;">
-            <ul>
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            <ul class="upload-list">
                 {% for title, status in file_status %}
                 <li class="upload-item">
                     <span>{{ title }} ({{ status }})</span>
+                    {% if status != '已上传' %}
+                    <a href="{{ url_for('upload_file', filename=title) }}" class="upload-link">上传</a>
+                    {% endif %}
                     {% if status == '已上传' %}
-                    <a href="{{ url_for('download_uploaded_file', username=session['username'], filename=title) }}" >查看</a>
+                    <a href="{{ url_for('download_uploaded_file', filename=title) }}" class="view-link">查看</a>
+                    <a href="{{ url_for('upload_file', filename=title) }}" class="re-upload-link">重新上传</a>
                     {% endif %}
                 </li>
                 {% endfor %}
             </ul>
-            <input type="file" name="files" multiple>
-            <button type="submit" style="width: 30%; margin-top: 20px;">提交代码</button>
         </form>
 
-        <a href="{{ url_for('logout') }}" style="display: block; margin-top: 20px; color: #5cb85c;">登出</a>
+        <a href="{{ url_for('logout') }}" class="logout-link">登出</a>
     </div>
+
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .file-link, .upload-link, .view-link, .re-upload-link {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .file-link:hover, .upload-link:hover, .view-link:hover, .re-upload-link:hover {
+            text-decoration: underline;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .upload-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .logout-link {
+            display: block;
+            margin-top: 20px;
+            color: #5cb85c;
+            text-decoration: none;
+        }
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </body>
 </html>

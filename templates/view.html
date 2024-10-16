@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Display</title>
+    
+    <!-- 引入 Prism.js 核心 CSS 和浅色主题 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='prism.min.css') }}">
+
+    <!-- 自定义 CSS 样式 -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap; /* 允许长行代码换行 */
+            word-wrap: break-word;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .code-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button style="text-align: left;margin-bottom: 10px;" class="back-button" onclick="history.back()">返回上一页面</button>
+        <div class="code-container">
+            <div class="code-title">{{title}}</div>
+            <pre><code class="language-cpp">{{code}}</code></pre>
+        </div>
+    </div>
+
+    <!-- 引入 Prism.js 核心 JS -->
+    <script src="{{ url_for('static', filename='prism.min.js') }}"></script>
+    <!-- 引入 C++ 语法支持 -->
+    <script src="{{ url_for('static', filename='prism-cpp.min.js') }}"></script>
+</body>
+</html>
